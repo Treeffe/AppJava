@@ -1,0 +1,50 @@
+/*==============================================================*/
+/* Nom de SGBD :  MySQL 5.0                                     */
+/* Date de création :  02/05/2016 14:43:51                      */
+/*==============================================================*/
+
+
+drop table if exists AUTHENT;
+
+drop table if exists OBTENIR;
+
+drop table if exists SUPPORT;
+
+/*==============================================================*/
+/* Table : AUTHENT                                              */
+/*==============================================================*/
+create table AUTHENT
+(
+   IDAUTH               int  NOT NULL AUTO_INCREMENT,
+   LOGINAUTH            char(20),
+   MDPAUTH              char(30),
+   primary key(IDAUTH)
+);
+
+/*==============================================================*/
+/* Table : OBTENIR                                              */
+/*==============================================================*/
+create table OBTENIR
+(
+   IDSUPPORT            int not null,
+   IDAUTH               int not null,
+   primary key (IDSUPPORT, IDAUTH)
+);
+
+/*==============================================================*/
+/* Table : SUPPORT                                              */
+/*==============================================================*/
+create table SUPPORT
+(
+   IDSUPPORT            int  NOT NULL AUTO_INCREMENT,
+   LIBSUPPORT           char(10),
+primary key(IDSUPPORT)
+   
+);
+
+alter table OBTENIR add constraint FK_OBTENIR foreign key (IDSUPPORT)
+      references SUPPORT (IDSUPPORT) on delete restrict on update restrict;
+
+alter table OBTENIR add constraint FK_OBTENIR2 foreign key (IDAUTH)
+      references AUTHENT (IDAUTH) on delete restrict on update restrict;
+
